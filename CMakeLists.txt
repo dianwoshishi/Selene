@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 2.8)
-project(Selene)
+cmake_minimum_required(VERSION 3.16)
+project(luaconfig)
 
 set(LUA_PC_CFG "lua;lua5.3;lua5.2;lua5.1" CACHE STRING "pkg-config Lua configuration file (or files, separated by ;)")
 
@@ -32,8 +32,13 @@ elseif(WIN32)
 endif(APPLE)
 
 include_directories(include)
-file(GLOB headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
-  include/*.h include/selene/*.h)
+# file(GLOB headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
+  # include/*.h include/selene/*.h)
 
-add_executable(test_runner ${CMAKE_CURRENT_SOURCE_DIR}/test/Test.cpp)
-target_link_libraries(test_runner ${LUA_LIBRARIES})
+add_library(luaconfig INTERFACE)
+target_include_directories(luaconfig INTERFACE include)
+
+# add_library(luaconfig STATIC src/LuaConfig.cpp)
+# target_include_directories(luaconfig PUBLIC include)
+# add_executable(test_runner ${CMAKE_CURRENT_SOURCE_DIR}/test/Test.cpp)
+# target_link_libraries(test_runner ${LUA_LIBRARIES})
